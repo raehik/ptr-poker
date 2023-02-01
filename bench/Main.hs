@@ -7,7 +7,11 @@ import Prelude
 
 main =
   defaultMain
-    [ bgroup
+    [ bgroup "asd"
+      [ bench "orig" $ nf (Write.writeToByteString . Write.bWord64) 1
+      , bench "newv" $ nf (Write.writeToByteString . Write.bWord64') 1
+      ]
+    , bgroup
         "bWord32"
         [ bench "4" $
             nf

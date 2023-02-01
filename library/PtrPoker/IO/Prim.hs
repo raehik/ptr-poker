@@ -85,6 +85,18 @@ pokeBEWord64 ptr value =
 #endif
 #endif
 
+{-# INLINE pokeBEWord64' #-}
+pokeBEWord64' :: Ptr Word8 -> Word64 -> IO ()
+#ifdef WORDS_BIGENDIAN
+pokeBEWord64' =
+  {-# SCC "pokeBEWord64'" #-} 
+  pokeStorable
+#else
+pokeBEWord64' ptr =
+  {-# SCC "pokeBEWord64'" #-}
+  pokeStorable ptr . byteSwap64
+#endif
+
 {-# INLINE pokeLEWord16 #-}
 pokeLEWord16 :: Ptr Word8 -> Word16 -> IO ()
 #ifdef WORDS_BIGENDIAN

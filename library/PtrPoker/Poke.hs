@@ -104,6 +104,11 @@ bWord64 :: Word64 -> Poke
 bWord64 a =
   Poke (\p -> PrimIO.pokeBEWord64 p a $> plusPtr p 8)
 
+{-# INLINE [1] bWord64' #-}
+bWord64' :: Word64 -> Poke
+bWord64' a =
+  Poke (\p -> PrimIO.pokeBEWord64' p a $> plusPtr p 8)
+
 -- |
 -- Encode Int16 in Little-endian.
 {-# INLINE lInt16 #-}

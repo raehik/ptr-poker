@@ -107,6 +107,11 @@ bWord64 :: Word64 -> Write
 bWord64 a =
   Write 8 (Poke.bWord64 a)
 
+{-# INLINE bWord64' #-}
+bWord64' :: Word64 -> Write
+bWord64' a =
+  Write 8 (Poke.bWord64' a)
+
 -- |
 -- Render Int16 in Little-endian.
 {-# INLINE lInt16 #-}
