@@ -7,9 +7,19 @@ import Prelude
 
 main =
   defaultMain
-    [ bgroup "asd"
-      [ bench "orig" $ nf (Write.writeToByteString . Write.bWord64) 1
-      , bench "newv" $ nf (Write.writeToByteString . Write.bWord64') 1
+    [ bgroup "reverse endian"
+      [ bgroup "64"
+        [ bench "orig" $ nf (Write.writeToByteString . Write.bWord64) 123
+        , bench "newv" $ nf (Write.writeToByteString . Write.bWord64') 123
+        ]
+      , bgroup "32"
+        [ bench "orig" $ nf (Write.writeToByteString . Write.bWord32) 123
+        , bench "newv" $ nf (Write.writeToByteString . Write.bWord32') 123
+        ]
+      , bgroup "16"
+        [ bench "orig" $ nf (Write.writeToByteString . Write.bWord16) 123
+        , bench "newv" $ nf (Write.writeToByteString . Write.bWord16') 123
+        ]
       ]
     , bgroup
         "bWord32"

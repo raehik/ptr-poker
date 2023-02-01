@@ -76,6 +76,11 @@ bWord16 :: Word16 -> Poke
 bWord16 a =
   Poke (\p -> PrimIO.pokeBEWord16 p a $> plusPtr p 2)
 
+{-# INLINE [1] bWord16' #-}
+bWord16' :: Word16 -> Poke
+bWord16' a =
+  Poke (\p -> PrimIO.pokeBEWord16' p a $> plusPtr p 2)
+
 -- |
 -- Encode Word32 in Little-endian.
 {-# INLINE [1] lWord32 #-}
@@ -89,6 +94,11 @@ lWord32 a =
 bWord32 :: Word32 -> Poke
 bWord32 a =
   Poke (\p -> PrimIO.pokeBEWord32 p a $> plusPtr p 4)
+
+{-# INLINE [1] bWord32' #-}
+bWord32' :: Word32 -> Poke
+bWord32' a =
+  Poke (\p -> PrimIO.pokeBEWord32' p a $> plusPtr p 4)
 
 -- |
 -- Encode Word64 in Little-endian.

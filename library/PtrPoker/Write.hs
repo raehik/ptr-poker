@@ -79,6 +79,11 @@ bWord16 :: Word16 -> Write
 bWord16 a =
   Write 2 (Poke.bWord16 a)
 
+{-# INLINE bWord16' #-}
+bWord16' :: Word16 -> Write
+bWord16' a =
+  Write 2 (Poke.bWord16' a)
+
 -- |
 -- Render Word32 in Little-endian.
 {-# INLINE lWord32 #-}
@@ -92,6 +97,11 @@ lWord32 a =
 bWord32 :: Word32 -> Write
 bWord32 a =
   Write 4 (Poke.bWord32 a)
+
+{-# INLINE bWord32' #-}
+bWord32' :: Word32 -> Write
+bWord32' a =
+  Write 4 (Poke.bWord32' a)
 
 -- |
 -- Render Word64 in Little-endian.

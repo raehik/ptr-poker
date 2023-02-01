@@ -37,6 +37,18 @@ pokeBEWord16 ptr value =
     pokeByteOff ptr 1 (fromIntegral value :: Word8)
 #endif
 
+{-# INLINE pokeBEWord16' #-}
+pokeBEWord16' :: Ptr Word8 -> Word16 -> IO ()
+#ifdef WORDS_BIGENDIAN
+pokeBEWord16' =
+  {-# SCC "pokeBEWord16'" #-} 
+  pokeStorable
+#else
+pokeBEWord16' ptr =
+  {-# SCC "pokeBEWord16'" #-}
+  pokeStorable ptr . byteSwap16
+#endif
+
 {-# INLINE pokeBEWord32 #-}
 pokeBEWord32 :: Ptr Word8 -> Word32 -> IO ()
 #ifdef WORDS_BIGENDIAN
@@ -51,6 +63,18 @@ pokeBEWord32 ptr value =
     pokeByteOff ptr 1 (fromIntegral (UncheckedShifting.shiftr_w32 value 16) :: Word8)
     pokeByteOff ptr 2 (fromIntegral (UncheckedShifting.shiftr_w32 value 8) :: Word8)
     pokeByteOff ptr 3 (fromIntegral value :: Word8)
+#endif
+
+{-# INLINE pokeBEWord32' #-}
+pokeBEWord32' :: Ptr Word8 -> Word32 -> IO ()
+#ifdef WORDS_BIGENDIAN
+pokeBEWord32' =
+  {-# SCC "pokeBEWord32'" #-} 
+  pokeStorable
+#else
+pokeBEWord32' ptr =
+  {-# SCC "pokeBEWord32'" #-}
+  pokeStorable ptr . byteSwap32
 #endif
 
 {-# INLINE pokeBEWord64 #-}
